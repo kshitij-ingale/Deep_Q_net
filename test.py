@@ -4,7 +4,7 @@ import numpy as np
 import tensorflow as tf
 from replay import Replay
 from agent import DQN_Agent
-from networktf2 import Network
+from network import Network
 
 class TestReplay(unittest.TestCase):
     def setUp(self):
@@ -41,14 +41,12 @@ class TestNetwork(unittest.TestCase):
     def setUp(self):
         ''' Create class instance and Gym environment instance '''
         self.env = gym.make('CartPole-v0')
-        self.Qnet = Network(self.env.observation_space.shape[0], self.env.action_space.n)
-        self.sess = tf.Session()
-        self.sess.run(tf.global_variables_initializer())
+        self.Qnet = Network(self.env.observation_space.shape[0], self.env.action_space.n, 'test')
 
     def test_Q_net_predict(self):
         ''' Test to check Q-network predict function '''
         state = self.env.reset()
-        self.assertEqual(self.Qnet.predict(self.sess,state.reshape(1,-1)).shape[1],self.env.action_space.n)
+        self.assertEqual(self.Qnet.predict(state.reshape(1,-1)).shape[1],self.env.action_space.n)
 
     def test_Q_net_fit(self):
         ''' Test to check Q-network fit function with dummy inputs and targets '''
@@ -57,7 +55,7 @@ class TestNetwork(unittest.TestCase):
         targets = np.random.randn(batch)
         actions = np.random.choice(self.env.action_space.n,batch)
         actions_selected = np.vstack([np.arange(batch),actions]).T
-        self.Qnet.fit(self.sess, states, targets, actions_selected)
+        self.Qnet.fit(states, targets, actions_selected)
 
 
 if __name__ == '__main__':

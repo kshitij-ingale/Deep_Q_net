@@ -1,10 +1,9 @@
 class Network_parameters:
-    layers=[16,32]
-    activation='relu'
     batch_size = 32
-    learning_rate = 0.005
+    learning_rate = 0.001
     Q_net_var_scope = 'Q_net'
     target_Q_net_var_scope = 'Q_target'
+    update_smoothing = 0.9
 
 class Replay_parameters:
     capacity = 50000
@@ -19,4 +18,5 @@ class Training_parameters:
     model_save_frequency = 1000
 
 class Directories:
-    tensorboard = 'tensorboard/'
+    saved_models = 'models/'
+    output = 'output/'

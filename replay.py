@@ -1,6 +1,6 @@
-'''
+"""
 Script for functions related to replay memory
-'''
+"""
 import random
 from config import Network_parameters, Replay_parameters
 
