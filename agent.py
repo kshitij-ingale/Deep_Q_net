@@ -1,7 +1,7 @@
 '''
 Script to train DQN agent for Gym environment
 '''
-import argparse, gym, random
+import argparse, gym, random, os
 import numpy as np
 import tensorflow as tf
 import matplotlib.pyplot as plt
@@ -160,6 +160,8 @@ def main():
     rewards, std = zip(*training_performance)
     episodes = list(range(0,args.train_episodes,Training_parameters.test_frequency))
     plt.errorbar(x=episodes, y=rewards, yerr=std)
+    if not os.path.isdir(Directories.output):
+    	os.mkdir(Directories.output)
     plt.savefig(f'{Directories.output}performance.png')
     plt.show()
 
