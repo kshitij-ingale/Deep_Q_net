@@ -73,7 +73,8 @@ class DQN_Agent:
             while not done:
                 # Perform an action in environment and add to replay memory
                 Q_values = self.Q_net.predict(state.reshape(-1, self.state_dim))
-                epsilon = 0.05 - episode * ((0.05 - 0.005) / self.train_episodes) # Anneal epsilon to 0.005
+                # Anneal exploration probability epsilon
+                epsilon = Training_parameters.inital_eps - (Training_parameters.scale_eps * (Training_parameters.inital_eps - Training_parameters.final_eps) * (episode / self.train_episodes))
                 action = self.epsilon_greedy_policy(Q_values, epsilon)
                 next_state, reward, done, _ = self.env.step(action)
                 self.memory.add_to_memory((next_state, reward, state, action, done))

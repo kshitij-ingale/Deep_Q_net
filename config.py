@@ -10,12 +10,15 @@ class Replay_parameters:
     burn_in_episodes = 10000
 
 class Training_parameters:
-    discount = 0.999
+    discount = 0.99
     test_episodes = 100
     test_frequency = 100
-    render_frequency = 3333
+    render_frequency = 1000
     update_target_frequency = 100
     model_save_frequency = 1000
+    inital_eps = 0.05
+    final_eps = 0.005
+    scale_eps = 1
 
 class Directories:
     saved_models = 'models/'
